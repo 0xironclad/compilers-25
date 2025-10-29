@@ -49,3 +49,11 @@ Number literals - add new rules besides `T_NUM`:
 ```
 0b[01]*|0o[0-7]*|0x{DIGIT}*[a-fA-F]*|14{DIGIT}*[a-dA-D]*|60([0-5]{DIGIT})* 	std::cout << "T_NUM2" << std::endl;
 ```
+
+### MULTILINE COMMENT
+**Rule**
+```
+<!-- Everything including the * symbol. Excluding the * symbol will be [^*]* -->
+\/\*(.)*\*\/       std::cout << "T_MULTI_LINE_COMMENT" << std::endl;
+```
+

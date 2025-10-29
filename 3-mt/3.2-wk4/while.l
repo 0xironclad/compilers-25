@@ -54,6 +54,9 @@ false       std::cout << "T_FALSE" << std::endl;
 0b[01]*|0o[0-7]*|0x{DIGIT}*[a-fA-F]*|14{DIGIT}*[a-dA-D]*|60([0-5]{DIGIT})* 	std::cout << "T_NUM2" << std::endl;
 
 
+\/\*[^*]*\*\/       std::cout << "T_MULTI_LINE_COMMENT" << std::endl;
+
+
 {WS}+   // nothing to do
 
 . {
