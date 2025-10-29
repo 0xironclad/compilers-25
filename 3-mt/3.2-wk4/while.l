@@ -57,6 +57,9 @@ false       std::cout << "T_FALSE" << std::endl;
 \/\*[^*]*\*\/       std::cout << "T_MULTI_LINE_COMMENT" << std::endl;
 
 
+\"([^"][^"][^"])+\"       std::cout << "T_STRING" << std::endl;
+
+
 {WS}+   // nothing to do
 
 . {
