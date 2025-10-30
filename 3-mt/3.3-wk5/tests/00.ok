@@ -1,7 +1,6 @@
 program test
-  integer i;
 begin
-  for i := 1 to 5 do
+  for (integer i := 0; i < 5; i++) do
     write(i);
   done
 end

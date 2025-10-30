@@ -157,6 +157,11 @@ loop:
     {
         std::cout << "loop -> T_FOR T_ID T_ASSIGN expression T_TO expression T_DO statements T_DONE" << std::endl;
     }
+|   
+    T_FOR T_OPEN T_INTEGER T_ID T_ASSIGN expression T_SEMICOLON expression T_SEMICOLON expression T_CLOSE T_DO statements T_DONE
+    {
+    std::cout << "loop -> T_FOR T_OPEN T_INTEGER T_ID T_ASSIGN expression T_SEMICOLON expression T_SEMICOLON expression T_CLOSE T_DO statements T_DONE" << std::endl;
+    }
 ;
 
 expression:
