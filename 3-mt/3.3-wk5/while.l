@@ -44,6 +44,8 @@ mod         return Parser::T_MOD;
 ")"         return Parser::T_CLOSE;
 "++"        return Parser::T_PP;
 "--"        return Parser::T_MM;
+"for"       return Parser::T_FOR;
+"to"        return Parser::T_TO;
 
 {DIGIT}+	return Parser::T_NUM;
 true        return Parser::T_TRUE;

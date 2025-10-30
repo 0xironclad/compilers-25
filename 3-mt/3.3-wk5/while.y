@@ -18,6 +18,8 @@
 %token T_WHILE T_DO T_DONE
 %token T_READ T_WRITE
 %token T_ASSIGN
+%token T_FOR
+%token T_TO
 
 %token T_OPEN T_CLOSE
 %token T_TRUE T_FALSE
@@ -149,6 +151,11 @@ loop:
     T_WHILE expression T_DO statements T_DONE
     {
         std::cout << "loop -> T_WHILE expression T_DO statements T_DONE" << std::endl;
+    }
+|
+    T_FOR T_ID T_ASSIGN expression T_TO expression T_DO statements T_DONE
+    {
+        std::cout << "loop -> T_FOR T_ID T_ASSIGN expression T_TO expression T_DO statements T_DONE" << std::endl;
     }
 ;
 
