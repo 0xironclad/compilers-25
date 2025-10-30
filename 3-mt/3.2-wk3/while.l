@@ -60,10 +60,15 @@ false       std::cout << "T_FALSE" << std::endl;
 \"([^"][^"][^"])+\"       std::cout << "T_STRING" << std::endl;
 
 
-(2[2-9]|[3-9]{DIGIT})-(0[1-9]|1[1-2])-(0[1-9]|[12]{DIGIT}|3[01])       std::cout << "T_DATE" << std::endl;
+(2[2-9]|[3-9]{DIGIT})-(0[1-9]|1[0-2])-(0[1-9]|[12]{DIGIT}|3[01])       std::cout << "T_DATE" << std::endl;
 
 
 {WS}+   // nothing to do
+
+((00|0[1-9]|1[0-9]|2[01])-[0-9]{2}-[0-9]{2}|[2-9][0-9]-(00|1[3-9]|[2-9][0-9])-[0-9]{2}|[2-9][0-9]-[0-9]{2}-(00|3[2-9]|[4-9][0-9])) {
+std::cerr << "Line " << lineno() << ": Invalid date literal" << std::endl;
+exit(1);
+}
 
 . {
     std::cerr << "Line " << lineno() << ": Lexical error." << std::endl;
