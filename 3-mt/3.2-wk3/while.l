@@ -60,6 +60,9 @@ false       std::cout << "T_FALSE" << std::endl;
 \"([^"][^"][^"])+\"       std::cout << "T_STRING" << std::endl;
 
 
+(2[2-9]|[3-9]{DIGIT})-(0[1-9]|1[1-2])-(0[1-9]|[12]{DIGIT}|3[01])       std::cout << "T_DATE" << std::endl;
+
+
 {WS}+   // nothing to do
 
 . {

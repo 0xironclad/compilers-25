@@ -22,7 +22,7 @@ A valid T_ID2 consists of two parts:
 
 Or in condensed form:
 
-```
+```c++
 (({LETTER}|_)*) ([02468]({DIGIT}{DIGIT})* | [13579]({DIGIT}{DIGIT})*{DIGIT})
 ```
 
@@ -52,8 +52,13 @@ Number literals - add new rules besides `T_NUM`:
 
 ### MULTILINE COMMENT
 **Rule**
-```
-<!-- Everything including the * symbol. Excluding the * symbol will be [^*]* -->
+```c++
+// Everything including the * symbol. Excluding the * symbol will be [^*]*
 \/\*(.)*\*\/       std::cout << "T_MULTI_LINE_COMMENT" << std::endl;
 ```
 
+### DATE 
+```c++
+(2[2-9]|[3-9]{DIGIT})-(0[1-9]|1[1-2])-(0[1-9]|[12]{DIGIT}|3[01])       std::cout << "T_DATE" << std::endl;
+
+```
