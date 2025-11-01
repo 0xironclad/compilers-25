@@ -46,6 +46,9 @@ mod         return Parser::T_MOD;
 "--"        return Parser::T_MM;
 "for"       return Parser::T_FOR;
 "to"        return Parser::T_TO;
+time        return Parser::T_TIME;
+hour        return Parser::T_HOUR;
+minute      return Parser::T_MINUTE;
 
 {DIGIT}+	return Parser::T_NUM;
 true        return Parser::T_TRUE;
@@ -54,6 +57,8 @@ false       return Parser::T_FALSE;
 "#".*\n    // nothing to do
 
 {LETTER}({LETTER}|{DIGIT}|_)*    return Parser::T_ID;
+
+(([01]{DIGIT})|2[0-3]):[0-5]{DIGIT}     return Parser::T_TIME_LITERAL;     
 
 {WS}+   // nothing to do
 

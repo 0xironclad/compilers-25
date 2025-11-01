@@ -10,7 +10,8 @@
 
 %token T_PROGRAM T_BEGIN T_END
 
-%token T_INTEGER T_BOOLEAN
+%token T_INTEGER T_BOOLEAN T_TIME
+%token T_TIME_LITERAL T_HOUR T_MINUTE
 
 %token T_SEMICOLON
 %token T_SKIP
@@ -67,6 +68,11 @@ declaration:
     T_BOOLEAN T_ID T_SEMICOLON
     {
         std::cout << "declaration -> T_BOOLEAN T_ID(" << *$2 << ") T_SEMICOLON" << std::endl;
+    }
+|
+    T_TIME T_ID T_SEMICOLON
+    {
+        std::cout << "declaration -> T_TIME T_ID(" << *$2 << ") T_SEMICOLON" << std::endl;
     }
 ;
 
@@ -184,6 +190,21 @@ expression:
     {
         std::cout << "expression -> T_ID(" << *$1 << ")" << std::endl;
     }
+|
+    T_TIME_LITERAL
+    {
+        std::cout << "expression -> T_TIME_LITERAL" << std::endl;
+    }
+|
+    T_HOUR T_OPEN expression T_CLOSE
+    {
+        std::cout << "expression -> T_HOUR T_OPEN expression T_CLOSE" << std::endl;
+    } 
+|
+    T_MINUTE T_OPEN expression T_CLOSE
+    {
+        std::cout << "expression -> T_MINUTE T_OPEN expression T_CLOSE" << std::endl;
+    } 
 |
     expression T_ADD expression
     {
