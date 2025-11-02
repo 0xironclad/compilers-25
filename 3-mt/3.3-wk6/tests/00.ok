@@ -1,8 +1,11 @@
 program test
-  integer a;
-  integer b;
+  integer a, b, c;
+  boolean x, y;
 begin
-  [a := 1 || b := 2];
+  a := 1;
+  b := 2;
+  c := 3;
   write(a);
   write(b);
+  write(c);
 end

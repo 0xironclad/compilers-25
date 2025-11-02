@@ -21,6 +21,7 @@
 %token T_COLON T_QUESTION
 %token T_PARALLEL
 %token T_OPEN_SQ T_CLOSE_SQ
+%token T_COMMA
 
 %token T_OPEN T_CLOSE
 %token T_TRUE T_FALSE
@@ -61,14 +62,26 @@ declarations:
 ;
 
 declaration:
-    T_INTEGER T_ID T_SEMICOLON
+    T_INTEGER variable_literal T_SEMICOLON
     {
-        std::cout << "declaration -> T_INTEGER T_ID(" << *$2 << ") T_SEMICOLON" << std::endl;
+        std::cout << "declaration -> T_INTEGER variable_literal T_SEMICOLON" << std::endl;
     }
 |
-    T_BOOLEAN T_ID T_SEMICOLON
+    T_BOOLEAN variable_literal T_SEMICOLON
     {
-        std::cout << "declaration -> T_BOOLEAN T_ID(" << *$2 << ") T_SEMICOLON" << std::endl;
+        std::cout << "declaration -> T_BOOLEAN variable_literal T_SEMICOLON" << std::endl;
+    }
+;
+
+variable_literal:
+    T_ID
+    {
+        std::cout << "variable_literal -> T_ID" << std::endl;
+    }
+|
+    variable_literal T_COMMA T_ID
+    {
+        std::cout << "variable_literal -> variable_literal T_COMMA T_ID" << std::endl;
     }
 ;
 
