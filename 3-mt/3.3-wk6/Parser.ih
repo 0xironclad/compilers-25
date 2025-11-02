@@ -1,0 +1,62 @@
+
+#pragma once
+
+#include "Parser.h"
+#include <cstdlib>
+#include <cstring>
+#include "lexer.ih"
+
+#if BISONCPP_VSN >= 602
+    #define LINE_NUMBER_VAR d_loc_
+    #define VALUE_VAR d_val_
+#else
+    #define LINE_NUMBER_VAR d_loc__
+    #define VALUE_VAR d_val__
+#endif
+
+
+inline int Parser::get_line_number() {
+    return LINE_NUMBER_VAR.first_line;
+}
+
+inline void Parser::set_line_number(int lineno) {
+    LINE_NUMBER_VAR.first_line = lineno;
+}
+
+inline void Parser::error(char const *msg)
+{
+    std::cerr << "Line " << get_line_number() << ": " << msg << '\n';
+    exit(1);
+}
+
+#if BISONCPP_VSN >= 602
+    inline void Parser::error()
+    {
+        error("Syntax error.");
+    }
+#endif
+
+// displays tokens if --print was specified
+#if BISONCPP_VSN >= 602
+    inline void Parser::print()         
+    {
+            print_();
+    }
+#else
+    inline void Parser::print()
+    {
+            print__();
+    }
+#endif
+
+#if BISONCPP_VSN >= 602
+    inline void Parser::exceptionHandler(std::exception const &exc)         
+    {
+        throw;              // re-implement to handle exceptions thrown by actions
+    }
+#else
+    inline void Parser::exceptionHandler__(std::exception const &exc)         
+    {
+        throw;              // re-implement to handle exceptions thrown by actions
+    }
+#endif

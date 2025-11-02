@@ -1,0 +1,6 @@
+program test
+  integer a;
+begin
+  a := 1 >> 2;
+  write(a);
+end
