@@ -18,6 +18,7 @@
 %token T_WHILE T_DO T_DONE
 %token T_READ T_WRITE
 %token T_ASSIGN
+%token T_COLON T_QUESTION
 
 %token T_OPEN T_CLOSE
 %token T_TRUE T_FALSE
@@ -237,5 +238,10 @@ expression:
     expression T_SHIFT expression
     {
         std::cout << "expression -> expression T_SHIFT expression" << std::endl;
+    }
+|
+    T_OPEN expression T_QUESTION expression T_COLON expression T_CLOSE
+    {
+        std::cout << "expression -> T_OPEN expression T_QUESTION expression T_COLON expression T_CLOSE" << std::endl;
     }
 ;

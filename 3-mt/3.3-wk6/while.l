@@ -43,6 +43,8 @@ mod         return Parser::T_MOD;
 "("         return Parser::T_OPEN;
 ")"         return Parser::T_CLOSE;
 ">>"        return Parser::T_SHIFT;
+"?"         return Parser::T_QUESTION;
+":"         return Parser::T_COLON;
 
 {DIGIT}+	return Parser::T_NUM;
 true        return Parser::T_TRUE;
