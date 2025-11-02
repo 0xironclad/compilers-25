@@ -19,6 +19,8 @@
 %token T_READ T_WRITE
 %token T_ASSIGN
 %token T_COLON T_QUESTION
+%token T_PARALLEL
+%token T_OPEN_SQ T_CLOSE_SQ
 
 %token T_OPEN T_CLOSE
 %token T_TRUE T_FALSE
@@ -112,6 +114,28 @@ statement:
     {
         std::cout << "statement -> loop" << std::endl;
     }
+|
+    T_OPEN_SQ statement_no_semi T_PARALLEL statement_no_semi T_CLOSE_SQ T_SEMICOLON
+    {
+        std::cout << "statement -> T_OPEN_SQ statement_no_semi T_PARALLEL statement_no_semi T_CLOSE T_SEMICOLON" << std::endl;
+    }
+;
+
+statement_no_semi:
+    assignment_no_semi
+    {
+        std::cout << "statement_no_semi -> assignment_no_semi" << std::endl;
+    }
+|
+    read_no_semi
+    {
+        std::cout << "statement_no_semi -> read_no_semi" << std::endl;
+    }
+|
+    write_no_semi
+    {
+        std::cout << "statement_no_semi -> read_no_semi" << std::endl;
+    }
 ;
 
 assignment:
@@ -121,10 +145,23 @@ assignment:
     }
 ;
 
+assignment_no_semi:
+    T_ID T_ASSIGN expression
+    {
+        std::cout << "assignment_no_semi -> T_ID T_ASSIGN expression" << std::endl;
+    }
+;
+
 read:
     T_READ T_OPEN T_ID T_CLOSE T_SEMICOLON
     {
         std::cout << "read -> T_READ T_OPEN T_ID(" << *$3 << ") T_CLOSE T_SEMICOLON" << std::endl;
+    }
+;
+read_no_semi:
+    T_READ T_OPEN T_ID T_CLOSE
+    {
+        std::cout << "read_no_semi -> T_READ T_OPEN T_ID T_CLOSE" << std::endl;
     }
 ;
 
@@ -132,6 +169,13 @@ write:
     T_WRITE T_OPEN expression T_CLOSE T_SEMICOLON
     {
         std::cout << "write -> T_WRITE T_OPEN expression T_CLOSE T_SEMICOLON" << std::endl;
+    }
+;
+
+write_no_semi:
+    T_WRITE T_OPEN expression T_CLOSE
+    {
+        std::cout << "write_no_semi -> T_WRITE T_OPEN expression T_CLOSE" << std::endl;
     }
 ;
 

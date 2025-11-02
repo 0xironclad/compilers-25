@@ -45,6 +45,9 @@ mod         return Parser::T_MOD;
 ">>"        return Parser::T_SHIFT;
 "?"         return Parser::T_QUESTION;
 ":"         return Parser::T_COLON;
+"||"        return Parser::T_PARALLEL;
+"["         return Parser::T_OPEN_SQ;
+"]"         return Parser::T_CLOSE_SQ;
 
 {DIGIT}+	return Parser::T_NUM;
 true        return Parser::T_TRUE;

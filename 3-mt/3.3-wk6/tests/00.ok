@@ -1,6 +1,8 @@
 program test
   integer a;
+  integer b;
 begin
-  a := (true ? 1 : 2);
+  [a := 1 || b := 2];
   write(a);
+  write(b);
 end
