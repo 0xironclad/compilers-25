@@ -12,8 +12,10 @@
 
 %token T_INTEGER T_BOOLEAN T_TIME
 %token T_TIME_LITERAL T_HOUR T_MINUTE
+%token T_ARRAY T_OPEN_SQ T_CLOSE_SQ T_OPEN_CURLY T_CLOSE_CURLY
+%token T_COMMA
 
-%token T_SEMICOLON
+%token T_SEMICOLON      
 %token T_SKIP
 %token T_IF T_THEN T_ELSE T_ENDIF
 %token T_WHILE T_DO T_DONE
@@ -74,6 +76,11 @@ declaration:
     {
         std::cout << "declaration -> T_TIME T_ID(" << *$2 << ") T_SEMICOLON" << std::endl;
     }
+|
+    T_INTEGER T_ARRAY T_ID T_OPEN_SQ T_NUM T_CLOSE_SQ T_SEMICOLON
+    {
+        std::cout << "declaration -> T_INTEGER T_ARRAY T_ID T_OPEN_SQ T_NUM T_CLOSE_SQ T_SEMICOLON" << std::endl;
+    }
 ;
 
 statements:
@@ -125,12 +132,27 @@ assignment:
     {
         std::cout << "assignment -> T_ID(" << *$1 << ") T_ASSIGN expression T_SEMICOLON" << std::endl;
     }
+|
+    T_ID T_OPEN_SQ T_CLOSE_SQ T_EQ array_literal T_SEMICOLON
+    {
+        std::cout << "assignment -> T_ID T_OPEN_SQ T_CLOSE_SQ T_EQ array_literal T_SEMICOLON" << std::endl;
+    }
+|
+    T_ID T_OPEN_SQ T_NUM T_CLOSE_SQ T_ASSIGN expression T_SEMICOLON
+    {
+        std::cout << "assignment -> T_ID T_OPEN_SQ T_NUM T_CLOSE_SQ T_ASSIGN expression T_SEMICOLON" << std::endl;
+    }
 ;
 
 read:
     T_READ T_OPEN T_ID T_CLOSE T_SEMICOLON
     {
         std::cout << "read -> T_READ T_OPEN T_ID(" << *$3 << ") T_CLOSE T_SEMICOLON" << std::endl;
+    }
+|
+    T_READ T_OPEN T_ID T_OPEN_SQ T_NUM T_CLOSE_SQ T_CLOSE T_SEMICOLON
+    {
+        std::cout << "read -> T_READ T_OPEN T_ID T_OPEN_SQ T_NUM T_CLOSE_SQ T_CLOSE T_SEMICOLON" << std::endl;
     }
 ;
 
@@ -167,6 +189,30 @@ loop:
     T_FOR T_OPEN T_INTEGER T_ID T_ASSIGN expression T_SEMICOLON expression T_SEMICOLON expression T_CLOSE T_DO statements T_DONE
     {
     std::cout << "loop -> T_FOR T_OPEN T_INTEGER T_ID T_ASSIGN expression T_SEMICOLON expression T_SEMICOLON expression T_CLOSE T_DO statements T_DONE" << std::endl;
+    }
+;
+
+array_literal:
+    T_OPEN_CURLY T_CLOSE_CURLY
+    {
+        std::cout << "array_literal-> T_OPEN_CURLY T_CLOSE_CURLY" << std::endl;
+    }
+|
+    T_OPEN_CURLY expression_list T_CLOSE_CURLY
+    {
+        std::cout << "array_literal-> T_OPEN_CURLY expression_list T_CLOSE_CURLY" << std::endl;
+    }
+;
+
+expression_list:
+    expression
+    {
+        std::cout << "expression_list-> expression" << std::endl;
+    }
+|
+    expression_list T_COMMA expression
+    {
+        std::cout << "expression_list-> expression_list T_COMMA expression" << std::endl;
     }
 ;
 
@@ -285,4 +331,14 @@ expression:
     {
         std::cout << "expression -> T_MM T_ID" << std::endl;
     }    
+|
+    array_literal
+    {
+        std::cout << "expression -> array_literal" << std::endl;
+    }
+|
+    T_ID T_OPEN_SQ T_NUM T_CLOSE_SQ
+    {
+        std::cout << "expression -> T_ID T_OPEN_SQ T_NUM T_CLOSE_SQ" << std::endl;
+    }
 ;

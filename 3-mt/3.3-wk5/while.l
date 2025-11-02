@@ -35,6 +35,11 @@ write       return Parser::T_WRITE;
 "+"         return Parser::T_ADD;
 "-"         return Parser::T_SUB;
 "*"         return Parser::T_MUL;
+"["         return Parser::T_OPEN_SQ;
+"]"         return Parser::T_CLOSE_SQ;
+"{"         return Parser::T_OPEN_CURLY;
+"}"         return Parser::T_CLOSE_CURLY;
+","         return Parser::T_COMMA;
 and         return Parser::T_AND;
 or          return Parser::T_OR;
 not         return Parser::T_NOT;
@@ -54,11 +59,14 @@ minute      return Parser::T_MINUTE;
 true        return Parser::T_TRUE;
 false       return Parser::T_FALSE;
 
+array       return Parser::T_ARRAY;
+
 "#".*\n    // nothing to do
 
 {LETTER}({LETTER}|{DIGIT}|_)*    return Parser::T_ID;
 
-(([01]{DIGIT})|2[0-3]):[0-5]{DIGIT}     return Parser::T_TIME_LITERAL;     
+(([01]{DIGIT})|2[0-3]):[0-5]{DIGIT}     return Parser::T_TIME_LITERAL;    
+
 
 {WS}+   // nothing to do
 
