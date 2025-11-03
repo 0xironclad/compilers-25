@@ -52,6 +52,7 @@ mod         return Parser::T_MOD;
 "list"      return Parser::T_LIST;
 "++"        return Parser::T_PLUS_PLUS;
 "+="        return Parser::T_APPENDMENT;
+"."         return Parser::T_DOT;
 
 {DIGIT}+	return Parser::T_NUM;
 true        return Parser::T_TRUE;

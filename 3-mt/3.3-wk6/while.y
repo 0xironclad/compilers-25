@@ -38,7 +38,7 @@
 %left T_MUL T_DIV T_MOD
 %left T_PLUS_PLUS
 
-%nonassoc T_NOT
+%nonassoc T_NOT T_DOT
 
 %start program
 
@@ -48,6 +48,18 @@ program:
     T_PROGRAM T_ID declarations T_BEGIN statements T_END
     {
         std::cout << "start -> T_PROGRAM T_ID(" << *$2 << ") declarations T_BEGIN statements T_END" << std::endl;
+    }
+;
+
+type_sequence:
+    type
+    {
+        std::cout << "type_sequence -> type" << std::endl;
+    }
+|
+    type_sequence T_COMMA type
+    {
+        std::cout << "type_sequence -> type" << std::endl;
     }
 ;
 
@@ -72,6 +84,11 @@ declaration:
     type T_LIST T_ID T_SEMICOLON
     {
         std::cout << "declaration -> type T_LIST T_ID T_SEMICOLON" << std::endl;
+    }
+|
+    T_LESS type_sequence T_GR T_ID T_SEMICOLON
+    {
+        std::cout << "declaration -> T_LESS type_sequence T_GR T_ID T_SEMICOLON" << std::endl;
     }
 ;
 
@@ -194,6 +211,11 @@ assignment:
     {
         std::cout << "assignment -> T_ID T_OPEN_SQ T_NUM T_CLOSE_SQ T_ASSIGN expression T_SEMICOLON" << std::endl;
     }
+|
+    T_ID T_DOT T_NUM T_ASSIGN expression T_SEMICOLON
+    {
+        std::cout << "assignment -> T_ID T_DOT T_NUM T_ASSIGN expression T_SEMICOLON" << std::endl;
+    }
 ;
 
 assignment_no_semi:
@@ -207,6 +229,11 @@ read:
     T_READ T_OPEN T_ID T_CLOSE T_SEMICOLON
     {
         std::cout << "read -> T_READ T_OPEN T_ID(" << *$3 << ") T_CLOSE T_SEMICOLON" << std::endl;
+    }
+|
+    T_READ T_OPEN T_ID T_DOT T_NUM T_CLOSE T_SEMICOLON
+    {
+        std::cout << "read -> T_READ T_OPEN T_ID T_DOT T_NUM T_CLOSE T_SEMICOLON" << std::endl;
     }
 ;
 read_no_semi:
@@ -365,5 +392,10 @@ expression:
     expression T_PLUS_PLUS expression
     {
         std::cout << "expression -> expression T_PLUS_PLUS expression" << std::endl;
+    }
+|
+    T_ID T_DOT T_NUM
+    {
+        std::cout << "expression -> T_ID T_DOT T_NUM" << std::endl;
     }
 ;

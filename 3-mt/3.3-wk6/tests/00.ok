@@ -1,31 +1,39 @@
-program list_test
-  integer list a;
-  integer list b;
-  integer list c;
+program tuple_test
+  <integer, boolean, integer> a;
+  <integer, integer> b;
+  <boolean, boolean> c;
   integer x;
   integer y;
+  boolean z;
 begin
-  a := [1, 2, 3];
-  b := [4, 5, 6];
-  x := 10;
-  y := 20;
-  c := [x, y, x + y, 100];
-  x := a[1];
-  y := b[2];
+  x := a.1;
+  z := a.2;
+  y := a.3;
   write(x);
+  write(z);
   write(y);
-  a[2] := 999;
-  write(a[2]);
-  a := b ++ [100, 10, 1];
-  c := [1, 2] ++ [3, 4];
-  write(a[1]);
-  write(c[3]);
-  a += [2, 4, 6, 8, 10, 100];
-  b += [999];
-  write(a[4]);
-  write(b[4]);
-  a := [1, 2, 3];
-  b := a;
-  a := [1] ++ [2] ++ [3];
-  write(a[3]);
+  a.1 := 100;
+  a.2 := true;
+  a.3 := 200;
+  write(a.1);
+  write(a.2);
+  a.1 := 10;
+  a.3 := 20;
+  x := a.1 + a.3;
+  write(x);
+  b.1 := 5;
+  b.2 := 6;
+  c.1 := true;
+  c.2 := false;
+  write(b.1);
+  write(b.2);
+  write(c.1);
+  a.1 := 1 + 2;
+  a.3 := a.1 * 2;
+  write(a.3);
+  if a.2 then
+    write(1);
+  endif
+  read(a.1);
+  write(a.1);
 end
