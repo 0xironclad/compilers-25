@@ -22,6 +22,7 @@
 %token T_PARALLEL
 %token T_OPEN_SQ T_CLOSE_SQ
 %token T_COMMA
+%token T_LIST T_APPENDMENT
 
 %token T_OPEN T_CLOSE
 %token T_TRUE T_FALSE
@@ -35,6 +36,7 @@
 %left T_LESS T_GR
 %left T_ADD T_SUB
 %left T_MUL T_DIV T_MOD
+%left T_PLUS_PLUS
 
 %nonassoc T_NOT
 
@@ -62,26 +64,38 @@ declarations:
 ;
 
 declaration:
-    T_INTEGER variable_literal T_SEMICOLON
+    type variable_sequence T_SEMICOLON
     {
-        std::cout << "declaration -> T_INTEGER variable_literal T_SEMICOLON" << std::endl;
+        std::cout << "declaration -> type variable_sequence T_SEMICOLON" << std::endl;
     }
 |
-    T_BOOLEAN variable_literal T_SEMICOLON
+    type T_LIST T_ID T_SEMICOLON
     {
-        std::cout << "declaration -> T_BOOLEAN variable_literal T_SEMICOLON" << std::endl;
+        std::cout << "declaration -> type T_LIST T_ID T_SEMICOLON" << std::endl;
     }
 ;
 
-variable_literal:
-    T_ID
+type:
+    T_INTEGER
     {
-        std::cout << "variable_literal -> T_ID" << std::endl;
+        std::cout << "type -> T_INTEGER" << std::endl;
     }
 |
-    variable_literal T_COMMA T_ID
+    T_BOOLEAN 
     {
-        std::cout << "variable_literal -> variable_literal T_COMMA T_ID" << std::endl;
+        std::cout << "type -> T_BOOLEAN" << std::endl;
+    }
+;
+
+variable_sequence:
+    T_ID
+    {
+        std::cout << "variable_sequence -> T_ID" << std::endl;
+    }
+|
+    variable_sequence T_COMMA T_ID
+    {
+        std::cout << "variable_sequence -> variable_sequence T_COMMA T_ID" << std::endl;
     }
 ;
 
@@ -151,10 +165,34 @@ statement_no_semi:
     }
 ;
 
+list_sequence:
+    expression
+    {
+        std::cout << "list_sequence -> expression" << std::endl;
+    }
+|
+    list_sequence T_COMMA expression
+    {
+        std::cout << "list_sequence -> list_sequence T_COMMA expression" << std::endl;
+    }
+;
+    
+    
+
 assignment:
     T_ID T_ASSIGN expression T_SEMICOLON
     {
         std::cout << "assignment -> T_ID(" << *$1 << ") T_ASSIGN expression T_SEMICOLON" << std::endl;
+    }
+|
+    T_ID T_APPENDMENT expression T_SEMICOLON
+    {
+        std::cout << "assignment -> T_ID T_APPENDMENT expression T_SEMICOLON" << std::endl;
+    }
+|
+    T_ID T_OPEN_SQ T_NUM T_CLOSE_SQ T_ASSIGN expression T_SEMICOLON
+    {
+        std::cout << "assignment -> T_ID T_OPEN_SQ T_NUM T_CLOSE_SQ T_ASSIGN expression T_SEMICOLON" << std::endl;
     }
 ;
 
@@ -208,6 +246,18 @@ loop:
     T_WHILE expression T_DO statements T_DONE
     {
         std::cout << "loop -> T_WHILE expression T_DO statements T_DONE" << std::endl;
+    }
+;
+
+list:
+    T_OPEN_SQ T_CLOSE_SQ
+    {
+        std::cout << "list -> T_OPEN_SQ T_CLOSE_SQ" << std::endl;
+    }
+|
+    T_OPEN_SQ list_sequence T_CLOSE_SQ
+    {
+        std::cout << "list -> T_OPEN_SQ list_sequence T_CLOSE_SQ" << std::endl;
     }
 ;
 
@@ -300,5 +350,20 @@ expression:
     T_OPEN expression T_QUESTION expression T_COLON expression T_CLOSE
     {
         std::cout << "expression -> T_OPEN expression T_QUESTION expression T_COLON expression T_CLOSE" << std::endl;
+    }
+|
+    T_ID T_OPEN_SQ T_NUM T_CLOSE_SQ
+    {
+        std::cout << "expression -> T_ID T_OPEN_SQ T_NUM T_CLOSE_SQ" << std::endl;
+    }
+|
+    list
+    {
+        std::cout << "expression -> list" << std::endl;
+    }
+|
+    expression T_PLUS_PLUS expression
+    {
+        std::cout << "expression -> expression T_PLUS_PLUS expression" << std::endl;
     }
 ;
