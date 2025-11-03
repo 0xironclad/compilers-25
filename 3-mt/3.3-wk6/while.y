@@ -193,6 +193,30 @@ list_sequence:
         std::cout << "list_sequence -> list_sequence T_COMMA expression" << std::endl;
     }
 ;
+
+id_sequence:
+    T_ID
+    {
+        std::cout << "id_sequence -> T_ID" << std::endl;
+    }
+|
+    id_sequence T_COMMA T_ID
+    {
+        std::cout << "id_sequence -> id_sequence T_COMMA T_ID" << std::endl;
+    }
+;
+
+expression_sequence:
+    expression
+    {
+        std::cout << "expression_sequence -> expression" << std::endl;
+    }
+|
+    expression_sequence T_COMMA expression
+    {
+        std::cout << "expression_sequence -> expression_sequence T_COMMA expression" << std::endl;
+    }
+;
     
     
 
@@ -215,6 +239,11 @@ assignment:
     T_ID T_DOT T_NUM T_ASSIGN expression T_SEMICOLON
     {
         std::cout << "assignment -> T_ID T_DOT T_NUM T_ASSIGN expression T_SEMICOLON" << std::endl;
+    }
+|
+    id_sequence T_ASSIGN expression_sequence T_SEMICOLON
+    {
+        std::cout << "assignment -> id_sequence T_ASSIGN expression_sequence T_SEMICOLON" << std::endl;
     }
 ;
 

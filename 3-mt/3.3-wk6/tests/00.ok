@@ -1,39 +1,20 @@
-program tuple_test
-  <integer, boolean, integer> a;
-  <integer, integer> b;
-  <boolean, boolean> c;
+program test
   integer x;
   integer y;
-  boolean z;
+  integer z;
+  boolean b;
 begin
-  x := a.1;
-  z := a.2;
-  y := a.3;
+  x, y := 1, 2;
   write(x);
-  write(z);
   write(y);
-  a.1 := 100;
-  a.2 := true;
-  a.3 := 200;
-  write(a.1);
-  write(a.2);
-  a.1 := 10;
-  a.3 := 20;
-  x := a.1 + a.3;
+  x, b := 1 + 2, true;
   write(x);
-  b.1 := 5;
-  b.2 := 6;
-  c.1 := true;
-  c.2 := false;
-  write(b.1);
-  write(b.2);
-  write(c.1);
-  a.1 := 1 + 2;
-  a.3 := a.1 * 2;
-  write(a.3);
-  if a.2 then
-    write(1);
-  endif
-  read(a.1);
-  write(a.1);
+  write(b);
+  x, y, z := 10, 20, 30;
+  write(x);
+  write(y);
+  write(z);
+  x, y := 1 + 2, 3 * 4;
+  write(x);
+  write(y);
 end
