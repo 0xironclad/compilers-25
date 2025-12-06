@@ -1,0 +1,10 @@
+program test
+  integer i;
+  integer sum;
+begin
+  sum := 0;
+  for i := 1 to 10 do
+    sum := sum + i;
+  done
+  write(sum);
+end

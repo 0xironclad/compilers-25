@@ -1,0 +1,11 @@
+program time_tester
+  time a;
+  integer x;
+  integer y;
+begin
+  a := 12:15;
+  x := hour(a);
+  y := minute(a);
+  write(x+y);
+  write((hour(01:00) + minute(00:01)) = 2);
+end

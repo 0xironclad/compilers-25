@@ -1,0 +1,26 @@
+
+#pragma once
+
+#include <cstdlib>
+
+#if BISONCPP_VSN >= 602
+    #define LINE_NUMBER_VAR d_loc_
+    #define VALUE_VAR d_val_
+#else
+    #define LINE_NUMBER_VAR d_loc__
+    #define VALUE_VAR d_val__
+#endif
+
+
+inline int Parser::lex()
+{
+    set_line_number(lexer.lineno());
+
+    int ret = lexer.yylex();
+    std::string token_text = lexer.YYText();
+
+    if ( ret == T_ID )   VALUE_VAR.name = new std::string(token_text);
+    if ( ret == T_NUM )  VALUE_VAR.name = new std::string(token_text);
+
+    return ret;
+}

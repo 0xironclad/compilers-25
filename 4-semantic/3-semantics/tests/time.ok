@@ -1,0 +1,22 @@
+program time_test
+    integer h;
+    integer m;
+    time t1;
+    time t2;
+begin
+    t1 := 12:34;
+    t2 := 23:59;
+    
+    h := hour(t1);
+    m := minute(t1);
+    
+    h := hour(t2);
+    m := minute(t2);
+    
+    h := hour(12:45);
+    m := minute(15:30);
+    
+    write(h);
+    write(m);
+end
+

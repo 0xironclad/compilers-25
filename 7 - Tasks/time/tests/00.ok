@@ -1,0 +1,7 @@
+program test
+  time t;
+  boolean b;
+begin
+  b := true;
+  t := make_time(b, 30);
+end
