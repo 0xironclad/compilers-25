@@ -1,0 +1,22 @@
+
+loop:
+    T_FOR T_ID T_ASSIGN expression T_TO expression T_DO statements T_DONE
+    {
+        if( symbol_table.count(*$2) == 0 )
+        {
+            std::stringstream ss;
+            ss << "Undeclared variable: " << *$2 << std::endl;
+            error( ss.str().c_str() );
+        }
+        if(symbol_table[*$2].decl_type != integer || $4->expr_type != integer || $6->expr_type != integer)
+        {
+           std::stringstream ss;
+           ss << LINE_NUMBER_VAR.first_line << ": Type error." << std::endl;
+           error( ss.str().c_str() );
+        }
+        $$ = new std::string("");
+        delete $2;
+        delete $4;
+        delete $6;
+    }
+;

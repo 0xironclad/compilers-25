@@ -1,0 +1,9 @@
+program all_write
+  string text;
+begin
+  text := "This is a string, not garbage: .,:;!?'()[]{}<>+-*/%=&|^~#@$_/?&=+%#";
+  write(length(text));
+  write(1 + length(text + text) + 2);
+  write(length(text * 3));
+  write(length(5 * text));
+end

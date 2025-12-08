@@ -1,0 +1,27 @@
+
+declaration:
+    T_INTEGER T_ARRAY T_ID T_SOPEN expression T_SCLOSE T_SEMICOLON
+    {
+    
+    }
+;
+
+assignment:
+    T_ID T_SOPEN expression T_SCLOSE T_ASSIGN expression T_SEMICOLON
+    {
+
+    }
+;
+
+read:
+    T_READ T_OPEN T_ID T_SOPEN expression T_SCLOSE T_CLOSE T_SEMICOLON
+    {
+    }
+;
+
+expression:
+    T_ID T_SOPEN expression T_SCLOSE
+    {
+    
+    }
+;

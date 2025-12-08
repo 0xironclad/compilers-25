@@ -1,0 +1,16 @@
+
+expression:
+    T_OPEN expression T_QUESTIONMARK expression T_COLON expression T_CLOSE
+    {
+        if($2->expr_type != boolean || $4->expr_type != $6->expr_type)
+        {
+           std::stringstream ss;
+           ss << LINE_NUMBER_VAR.first_line << ": Type error." << std::endl;
+           error( ss.str().c_str() );
+        }
+        $$ = new expression_descriptor($4->expr_type, "");
+        delete $2;
+        delete $4;
+        delete $6;
+    }
+;

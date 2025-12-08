@@ -1,0 +1,3 @@
+
+for         return Parser::T_FOR;
+to          return Parser::T_TO;

@@ -1,0 +1,40 @@
+expression:
+    T_OPEN expression T_QUESTIONMARK expression T_COLON expression T_CLOSE
+    {
+        if($2->expr_type != boolean || $4->expr_type != $6->expr_type)
+        {
+           std::stringstream ss;
+           ss << LINE_NUMBER_VAR.first_line << ": Type error." << std::endl;
+           error( ss.str().c_str() );
+        }
+        std::string else_label = new_label();
+        std::string end_label = new_label();
+        if($4->expr_type == integer)
+        {
+            $$ = new expression_descriptor(integer, "" +
+                    $2->expr_code +
+                    "cmp al, 1\n" +
+                    "jne near " + else_label + "\n" +
+                    $4->expr_code +
+                    "jmp " + end_label + "\n" +
+                    else_label + ":\n" +
+                    $6->expr_code +
+                    end_label + ":\n");
+        }
+        else 
+        {
+            $$ = new expression_descriptor(boolean, "" +
+                    $2->expr_code +
+                    "cmp al, 1\n" +
+                    "jne near " + else_label + "\n" +
+                    $4->expr_code +
+                    "jmp " + end_label + "\n" +
+                    else_label + ":\n" +
+                    $6->expr_code +
+                    end_label + ":\n");
+        }
+        delete $2;
+        delete $4;
+        delete $6;
+    }
+;

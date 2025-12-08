@@ -1,0 +1,3 @@
+
+/* note: priority would matter in a more realistic compiler */
+%token T_POW

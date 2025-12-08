@@ -1,0 +1,34 @@
+
+declaration:
+    T_STRING T_ID T_SEMICOLON
+    {
+        if( symbol_table.count(*$2) > 0 )
+        {
+            std::stringstream ss;
+            ss << "Re-declared variable: " << *$2 << ".\n"
+            << "Line of previous declaration: " << symbol_table[*$2].decl_row << std::endl;
+            error( ss.str().c_str() );
+        }
+        symbol_table[*$2] = var_data( LINE_NUMBER_VAR.first_line, string_type, new_label() );
+        delete $2;
+    }
+;
+
+expression:
+    T_STRING_LIT
+    {
+        $$ = new expression_descriptor(string_type, "");
+    }
+|
+    T_LENGTH T_OPEN expression T_CLOSE
+    {
+        if($3->expr_type != string_type)
+        {
+           std::stringstream ss;
+           ss << LINE_NUMBER_VAR.first_line << ": Type error." << std::endl;
+           error( ss.str().c_str() );
+        }
+        $$ = new expression_descriptor(integer, "");
+        delete $3;
+    }
+;

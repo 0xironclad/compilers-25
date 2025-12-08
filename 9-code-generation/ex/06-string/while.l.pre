@@ -1,0 +1,4 @@
+
+length      return Parser::T_LENGTH;
+string      return Parser::T_STRING;
+["][^"]*["] return Parser::T_STRING_LIT;

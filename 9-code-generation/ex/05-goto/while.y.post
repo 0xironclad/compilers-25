@@ -1,0 +1,39 @@
+statement:
+    T_ID T_COLON
+    {
+        if( symbol_table.count(*$1) > 0 )
+        {
+            std::stringstream ss;
+            ss << "Re-declared identifier: " << *$1 << ".\n"
+            << "Line of previous declaration: " << symbol_table[*$1].decl_row << std::endl;
+            error( ss.str().c_str() );
+        }
+        symbol_table[*$1] = var_data( LINE_NUMBER_VAR.first_line, goto_label, *$1 + ":" );
+        $$ = new std::string(symbol_table[*$1].label + "\n");
+        delete $1;
+    }
+|
+    T_GOTO T_ID T_SEMICOLON
+    {
+        if( symbol_table.count(*$2) == 0 )
+        {
+            std::stringstream ss;
+            ss << "Undeclared label: " << *$2 << std::endl;
+            error( ss.str().c_str() );
+        }
+        if( symbol_table[*$2].decl_type != goto_label )
+        {
+            std::stringstream ss;
+            ss << "Identifier " << *$2 << " is not a label" << std::endl;
+            error( ss.str().c_str() );
+        }
+        if( symbol_table[*$2].decl_row >= LINE_NUMBER_VAR.first_line )
+        {
+            std::stringstream ss;
+            ss << "Goto can only jump backward. Label " << *$2 << " is defined at line " << symbol_table[*$2].decl_row << " but goto is at line " << LINE_NUMBER_VAR.first_line << std::endl;
+            error( ss.str().c_str() );
+        }
+        $$ = new std::string("jmp " + symbol_table[*$2].label.substr(0, symbol_table[*$2].label.length() - 1) + "\n");
+        delete $2;
+    }
+;

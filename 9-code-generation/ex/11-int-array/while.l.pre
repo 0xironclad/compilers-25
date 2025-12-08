@@ -1,0 +1,4 @@
+
+array       return Parser::T_ARRAY;
+"["         return Parser::T_SOPEN;
+"]"         return Parser::T_SCLOSE;

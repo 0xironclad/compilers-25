@@ -1,0 +1,2 @@
+"++"        return Parser::T_INC;
+"--"        return Parser::T_DEC;

@@ -1,0 +1,12 @@
+
+declaration:
+    T_INTEGER T_ID T_EQ expression T_SEMICOLON
+    {
+    
+    }
+|
+    T_BOOLEAN T_ID T_EQ expression T_SEMICOLON
+    {
+    
+    }
+;

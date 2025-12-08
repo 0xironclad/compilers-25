@@ -1,0 +1,2 @@
+
+const       return Parser::T_CONST;

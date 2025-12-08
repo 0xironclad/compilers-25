@@ -1,0 +1,12 @@
+
+declaration:
+    T_CONST T_INTEGER T_ID T_SEMICOLON
+    {
+    
+    }
+|
+    T_CONST T_BOOLEAN T_ID T_SEMICOLON
+    {
+    
+    }
+;

@@ -1,0 +1,2 @@
+goto        return Parser::T_GOTO;
+":"         return Parser::T_COLON;

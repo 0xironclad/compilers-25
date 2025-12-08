@@ -1,0 +1,9 @@
+program inc_and_dec
+  integer i;
+begin
+  read(i);
+  i := i++;
+  write(i);
+  i := i--;
+  write(i);
+end

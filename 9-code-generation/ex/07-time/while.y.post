@@ -1,0 +1,55 @@
+
+declaration:
+    T_TIME T_ID T_SEMICOLON
+    {
+        if( symbol_table.count(*$2) > 0 )
+        {
+            std::stringstream ss;
+            ss << "Re-declared variable: " << *$2 << ".\n"
+            << "Line of previous declaration: " << symbol_table[*$2].decl_row << std::endl;
+            error( ss.str().c_str() );
+        }
+        symbol_table[*$2] = var_data( LINE_NUMBER_VAR.first_line, time_type, new_label() );
+        delete $2;
+    }
+;
+
+
+/* Note: this is not a new rule but the modification of an old one.
+         Comment out the old rule so that it doesn't interfere.
+*/
+assignment:
+    T_ID T_ASSIGN expression T_SEMICOLON
+    {
+        if( symbol_table.count(*$1) == 0 )
+        {
+            std::stringstream ss;
+            ss << "Undeclared variable: " << *$1 << std::endl;
+            error( ss.str().c_str() );
+        }
+        if(symbol_table[*$1].decl_type != $3->expr_type)
+        {
+           std::stringstream ss;
+           ss << LINE_NUMBER_VAR.first_line << ": Type error." << std::endl;
+           error( ss.str().c_str() );
+        }
+        if($3->expr_type == integer)
+            $$ = new std::string("" +
+                    $3->expr_code +
+                    "mov [" + symbol_table[*$1].label + "], eax\n");
+        if($3->expr_type == boolean)
+            $$ = new std::string("" +
+                    $3->expr_code +
+                    "mov [" + symbol_table[*$1].label + "], al\n");
+        
+        /* New part */
+        
+        if($3->expr_type == time_type)
+            $$ = new std::string("");
+
+        /* New part end */
+        
+        delete $1;
+        delete $3;
+    }
+;

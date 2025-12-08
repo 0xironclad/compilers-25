@@ -1,0 +1,22 @@
+program const_test
+  const integer c1;
+  const integer c2;
+  const boolean b1;
+  integer i;
+  boolean b2;
+begin
+  c1 := 10;
+  c2 := 20;
+  b1 := true;
+  i := 5;
+  b2 := false;
+  write(c1);
+  write(c2);
+  write(c1 + c2);
+  write(c1 + i);
+  write(b1);
+  write(b1 and b2);
+  c1 := 100;
+  b1 := false;
+  write(c1);
+end

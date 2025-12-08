@@ -1,0 +1,5 @@
+
+%token T_TIME
+%token T_TIME_LIT
+%token T_HOUR
+%token T_MINUTE

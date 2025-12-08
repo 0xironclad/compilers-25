@@ -1,0 +1,16 @@
+
+// Note: add all the expression rules under this single rule to avoid Shift/Reduce conflicts.
+expression:
+    expression T_POW expression
+    {
+        if($1->expr_type != integer || $3->expr_type != integer)
+        {
+           std::stringstream ss;
+           ss << LINE_NUMBER_VAR.first_line << ": Type error." << std::endl;
+           error( ss.str().c_str() );
+        }
+        $$ = new expression_descriptor(integer, "");
+        delete $1;
+        delete $3;
+    }
+;

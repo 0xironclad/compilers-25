@@ -1,0 +1,9 @@
+program forloop
+  integer i;
+  integer limit;
+begin
+  read(limit);
+  for i := 1 to limit do
+    write(i);
+  done
+end

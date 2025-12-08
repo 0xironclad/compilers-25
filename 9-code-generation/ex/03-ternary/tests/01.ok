@@ -1,0 +1,10 @@
+program ternary_usage
+  integer i;
+  integer j;
+begin
+  read(i);
+  read(j);
+  write(i < j);
+  write((i < j ? 123 : 456));
+  write(((i < j ? 123 : 456) + 1));
+end

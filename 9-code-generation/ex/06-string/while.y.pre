@@ -1,0 +1,2 @@
+
+%token T_STRING T_STRING_LIT T_LENGTH

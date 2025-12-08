@@ -1,0 +1,36 @@
+
+Run the default compiler like this:
+
+	./compile_and_run.sh ex/default/tests/01.ok
+
+To solve an exercise, change the appropriate parts under ex/<the exercise>, then run it like this.
+
+	./compile_and_run.sh ex/01-incdec/tests/01.ok
+
+The script will detect which exercise you're using.
+
+Notes.
+- You'll see some "Extending rule" warnings. You may ignore them if no other warnings are showing.
+- Sometimes, you'll have to add simple semantic content into some files under src/ as well.
+- The new syntax rules that are added to the grammar are always listed in the while.y.post file.
+  However, you may need to add some semantic rules to some old rules.
+  - You have to find which ones you have to modify and how.
+  - Comment out the old rule so that it doesn't interfere.
+- In some cases, the compiler won't even compile until you add/modify the necessary parts.
+
+---------------------------------------------------------------
+
+The same can be achieved like this, too:
+
+	make EX=ex/01-incdec
+	./compiler/while example.while > example.asm
+	nasm -felf example.asm
+	gcc io.c example.o -m32 -no-pie -o code/example
+	./example
+
+Note: we are using 32 bit code.
+If you are running it on your own system, which probably is a 64 bit one, you may have to install some 32 bit C libraries.
+
+	sudo dpkg --add-architecture i386
+	sudo apt update
+	sudo apt install libc6-dev-i386 gcc-multilib

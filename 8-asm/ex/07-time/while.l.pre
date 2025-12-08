@@ -1,0 +1,4 @@
+
+time        return Parser::T_TIME;
+hour        return Parser::T_HOUR;
+minute      return Parser::T_MINUTE;

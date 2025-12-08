@@ -1,0 +1,12 @@
+program forloop
+  integer i;
+  integer j;
+begin
+  read(i);
+
+  j := i ** 2;
+  write(j);
+  write(i**2);
+  write(i**3);
+  write(i**4);
+end

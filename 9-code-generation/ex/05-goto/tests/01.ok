@@ -1,0 +1,17 @@
+program forloop_simulator
+  integer i;
+begin
+  i := 10;
+
+  loop_start:
+    if i == 0 then
+      goto loop_end
+    endif
+
+    write(i);
+    i := i - 1;
+    goto loop_start
+
+  loop_end:
+
+end

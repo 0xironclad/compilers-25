@@ -1,0 +1,2 @@
+
+%token T_SOPEN T_SCLOSE T_ARRAY

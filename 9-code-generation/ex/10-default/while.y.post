@@ -1,0 +1,40 @@
+
+declaration:
+    T_INTEGER T_ID T_EQ expression T_SEMICOLON
+    {
+        if(symbol_table.count(*$2) > 0){
+            std::stringstream ss;
+            ss << "Re-declared variable: " << *$2 << ".\n"
+            << "Line of previous declaration: " << symbol_table[*$2].decl_row << std::endl;
+            error( ss.str().c_str() );
+        }
+        if($4->expr_type != integer){
+            std::stringstream ss;
+            ss << LINE_NUMBER_VAR.first_line << ": Type error." << std::endl;
+            error( ss.str().c_str() );
+        }
+        symbol_table[*$2] = var_data( LINE_NUMBER_VAR.first_line, integer, new_label() );
+        $$ = new std::string("" + $4->expr_code + "mov [" + symbol_table[*$2].label + "], eax\n");
+        delete $2;
+        delete $4;
+    }
+|
+    T_BOOLEAN T_ID T_EQ expression T_SEMICOLON
+    {
+        if(symbol_table.count(*$2) > 0){
+            std::stringstream ss;
+            ss << "Re-declared variable: " << *$2 << ".\n"
+            << "Line of previous declaration: " << symbol_table[*$2].decl_row << std::endl;
+            error( ss.str().c_str() );
+        }
+        if($4->expr_type != boolean){
+            std::stringstream ss;
+            ss << LINE_NUMBER_VAR.first_line << ": Type error." << std::endl;
+            error( ss.str().c_str() );
+        }
+        symbol_table[*$2] = var_data( LINE_NUMBER_VAR.first_line, boolean, new_label() );
+        $$ = new std::string("" + $4->expr_code + "mov [" + symbol_table[*$2].label + "], al\n");
+        delete $2;
+        delete $4;
+    }
+;
